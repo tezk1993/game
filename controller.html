@@ -1,0 +1,509 @@
+<html>
+<head>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<!--/*This is where we refer to the JS */-->
+<script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.5.0.js"></script>
+<script type="text/javascript" src="airconsole-controls/rate-limiter/rate-limiter.js"></script>
+<script type="text/javascript" src="airconsole-controls/dpad/dpad.js"></script>
+<script type="text/javascript" src="airconsole-controls/joystick/joystick.js"></script>
+<script type="text/javascript" src="airconsole-controls/button/button.js"></script>
+<script type="text/javascript" src="airconsole-controls/ctrl-generator/ViewManager.js"></script>
+  <script type="text/javascript" src="airconsole-controls/shake-detector/airconsole-shake-detector.js"></script>
+
+<!--This is where we refer to the css */-->
+<link rel="stylesheet" type="text/css" href="airconsole-controls/joystick/joystick.css">
+<link rel="stylesheet" type="text/css" href="airconsole-controls/dpad/dpad.css">
+<link rel="stylesheet" type="text/css" href="airconsole-controls/button/button.css">
+
+    <style type="text/css">
+      body {
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .ingame-container {
+        position: relative;
+        background-color: #3b3b3b;
+        text-align: center;
+        font-family: sans-serif;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        max-width: 720px;
+        max-height: 360px;
+      }
+      .button-300-150 {
+        position: absolute;
+        height: 50%;
+        width: 40%;
+        right: 0px;
+      }
+      .button-80 {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        left: 50%;
+        margin-left: -25%;
+        font-size: 10px;
+      }
+      .button-80 .button-text {
+        margin-top: -0.6em;
+      }
+      /* You need to explicitly position your joystick */
+      #joystick_left {
+        position: absolute;
+        width: 45%;
+        height: 90%;
+        top: 5%;
+        left: 0%;
+      }
+
+
+      #Ranged {
+         Top: 40px;
+        background-position: 50% 0%;
+      }
+      .button-Ranged-text {
+      position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        padding-bottom: 50%;
+        height: 0%;
+      }
+
+
+
+	  #Melee {
+	  	bottom: 40px;
+        background-position: 50% 100%;
+
+      }
+      .button-Melee-text {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        padding-bottom: 50%;
+        height: 0%;
+      }
+
+
+      .middle-group {
+        position: absolute;
+        height: 50%;
+        width: 20%;
+        left: 40%;
+        top: 50%;
+      }
+      .middle-group-square {
+        position: absolute;
+        height: 0%;
+        width: 100%;
+        padding-bottom: 100%;
+        left: 0px;
+        top: 0px;
+      }
+      #start {
+        bottom: 110%;
+      }
+      #select {
+        bottom: 55%;
+      }
+      #reset {
+        bottom: 0%;
+      }
+
+
+
+
+
+
+      .menu-container {
+        position: relative;
+        background-color: #3b3b3b;
+        text-align: center;
+        font-family: sans-serif;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        max-width: 720px;
+        max-height: 360px;
+	  }
+
+	  .button-300-150 {
+        position: absolute;
+        height: 50%;
+        width: 40%;
+        right: 0px;
+      }
+      .button-80 {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        left: 50%;
+        margin-left: -25%;
+        font-size: 10px;
+      }
+      .button-80 .button-text {
+        margin-top: -0.6em;
+      }
+
+      #joystick_menu {
+        position: absolute;
+        width: 45%;
+        height: 90%;
+        top: 5%;
+        left: 0%;
+      }
+      /* You need to explicitly position your buttons */
+      #Submit {
+        position: absolute;
+        width: 40%;
+        height: 100%;
+        right: 0%;
+        top: 0%;
+      }
+	   .middle-group {
+        position: absolute;
+        height: 50%;
+        width: 20%;
+        left: 40%;
+        top: 50%;
+      }
+      .middle-group-square {
+        position: absolute;
+        height: 0%;
+        width: 100%;
+        padding-bottom: 100%;
+        left: 0px;
+        top: 0px;
+      }
+      #start {
+        bottom: 110%;
+      }
+      #select {
+        bottom: 55%;
+      }
+      #reset {
+        bottom: 0%;
+      }
+    </style>
+  </head>
+  <body>
+  <div id="view_menu" class="view">
+    <div class="menu-container">
+    <div class="middle-group">
+        <div class="middle-group-square">
+          <div id="start" class="button-80"><div class="button-text">START</div></div>
+          <div id="select" class="button-80"><div class="button-text">SELECT</div></div>
+          <div id="reset" class="button-80"><div class="button-text">RESET</div></div>
+        </div>
+      </div>
+      <div id="joystick_menu" class="joystick">
+        <div class="joystick-relative">
+          <div class="joystick-relative-stick"></div>
+        </div>
+      </div>
+      <div id=Submit class=button-300-150>
+        <div class="button-text">Submit</div>
+      </div>
+    </div>
+   </div>
+
+
+
+   <div id="view_ingame" class="view">
+      <div class="ingame-container">
+
+      <div class="middle-group">
+        <div class="middle-group-square">
+          <div id="start" class="button-80"><div class="button-text">START</div></div>
+          <div id="select" class="button-80"><div class="button-text">SELECT</div></div>
+          <div id="reset" class="button-80"><div class="button-text">RESET</div></div>
+        </div>
+      </div>
+
+      <div id="joystick_left" class="joystick">
+        <div class="joystick-relative">
+          <div class="joystick-relative-stick"></div>
+        </div>
+      </div>
+
+      <br/><br/><br/>
+
+         <div id=Ranged class="button-300-150"><div class="button-Ranged-text"><div class="button-text">Ranged</div></div></div>
+         <div id=Melee class="button-300-150"><div class="button-Melee-text"><div class="button-text">Melee</div></div></div>
+
+
+    </div>
+   </div>
+    
+    <script type="text/javascript">
+	  
+	  var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE,device_motion: 10});
+   	  var vm = null;
+      var rateLimiter = new RateLimiter(airconsole);
+
+ var shake_detector = new AirConsoleShakeDetector({
+    // Threshold of moving the device
+    threshold: 5,
+    // Time in ms of how often the shake event triggers (ever 100 ms)
+    timeout: 100,
+    // Function to call when a shake was recognized
+    callback: function() {
+          console.log("Shake it ...");
+		airconsole.message(AirConsole.SCREEN, {"shakeMotion" : "true"}); 
+		airconsole.message(AirConsole.SCREEN, {"shakeMotion" : "false"});   }
+  });
+
+      sendMessageToScreen = function (msg) {
+            this.airconsole.message(AirConsole.SCREEN, msg);
+        };
+
+
+    airconsole.onReady = function () {
+        vm = new AirConsoleViewManager(airconsole);
+    };
+
+     airconsole.onDeviceMotion = function(o) {
+    shake_detector.onDeviceMotion(o);
+  };
+
+
+
+    airconsole.onMessage = function(device_id, device_data){
+    	console.log(device_data);
+    	if (device_id == 0) {
+            //it gets to this step something wrong with if statement
+            console.log("Message received");
+
+            if (device_data["ctrlinfo"] != null && device_data["ctrlinfo"] == "ingame") {
+                console.log("In game");
+
+                vm.show("view_ingame");             
+            }
+            else if (device_data["ctrlinfo"] != null && device_data["ctrlinfo"] == "gameover") {
+                	console.log("Game over");
+
+            }
+            else if (device_data["ctrlinfo"] != null && device_data["ctrlinfo"] == "menu") {
+            	console.log("In game");
+                 vm.show("view_menu");
+            }
+            else if(device_data["masterCtrlinfo"] != null && device_data["masterCtrlinfo"] == "master") {
+            	console.log("master controller");
+                 vm.show("view_ingame");
+            }
+            else if(device_data["slaveCtrlinfo"] != null && device_data["slaveCtrlinfo"] == "slave") {
+            	console.log("Slave controller");
+                 vm.show("view_menu");
+            }
+        }
+    }
+
+
+	   airconsole.onCustomDeviceStateChange = function (device_id, device_data) {
+
+        
+        //check if the state change was on the screen, not some other device
+        if (device_id == 0) {
+            //it gets to this step something wrong with if statement
+
+            if (device_data["sceneInfo"] != null && device_data["sceneInfo"] == "ingame") {
+                vm.show("view_ingame");             
+            }
+            else if (device_data["sceneInfo"] != null && device_data["sceneInfo"] == "gameover") {
+                vm.show("view_gameover");
+
+            }
+            else if (device_data["sceneInfo"] != null && device_data["sceneInfo"] == "menu") {
+                vm.show("view_menu");
+            }
+        }
+
+    }
+    <!--/*This is where we refer to the JS */-->
+
+	var rectangular = new Button("Submit", {
+        "down": function() {
+          airconsole.message(AirConsole.SCREEN, {"Submit" : "down"});
+        },
+        "up": function() {
+          airconsole.message(AirConsole.SCREEN, {"Submit" : "up"});
+        }
+      });
+
+
+      <!--/*This is where we refer to the JS */-->
+
+      var rectangular = new Button("Ranged", {
+        "down": function() {
+          airconsole.message(AirConsole.SCREEN, {"Ranged" : "down"});
+        },
+        "up": function() {
+          airconsole.message(AirConsole.SCREEN, {"Ranged" : "up"});
+        }
+      });
+
+        var rectangular = new Button("Melee", {
+        "down": function() {
+          airconsole.message(AirConsole.SCREEN, {"Melee" : "down"});
+        },
+        "up": function() {
+          airconsole.message(AirConsole.SCREEN, {"Melee" : "up"});
+        }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+      var joystick_menu = new Joystick("joystick_menu", {
+          "touchstart": function () {
+              rateLimiter.message(AirConsole.SCREEN, {
+                  "joystick_menu": {
+                      touch: true
+
+                  }
+              });
+          },
+          "touchmove": function (position) {
+              rateLimiter.message(AirConsole.SCREEN, {
+                  "joystick_menu": {
+                      position: position
+                  }
+              });
+          },
+          "touchend": function (had_direction) {
+              rateLimiter.message(AirConsole.SCREEN, {
+                  "joystick_menu": {
+                      touch: false
+                  }
+              });
+          }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+	  var joystick_left = new Joystick("joystick_left", {
+        "touchstart": function() {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_left": {
+              touch: true
+			  
+            }
+          });
+        },
+        "touchmove": function(position) {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_left": {
+              position: position
+            }
+          });
+        },
+        "touchend": function(had_direction) {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_left": {
+              touch: false
+            }
+          });
+        }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+      var joystick_right = new Joystick("joystick_right", {
+        "touchstart": function() {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_right": {
+              touch: true
+            }
+          });
+        },
+        "touchmove": function(position) {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_right": {
+              position: position
+            }
+          });
+        },
+        "touchend": function(had_direction) {
+          rateLimiter.message(AirConsole.SCREEN, {
+            "joystick_right": {
+              touch: false
+            }
+          });
+        }
+      });
+
+	  <!--/*This is where we refer to the JS */-->
+
+      new DPad("dpad", {
+        "directionchange": function(key, pressed) {
+        airconsole.message(AirConsole.SCREEN, {
+          "dpad": {
+            "directionchange": {
+              "key": key,
+              "pressed": pressed
+            }
+          }
+        });
+      },
+        "touchstart": function() {
+          airconsole.message(AirConsole.SCREEN, {
+            "dpad": {
+              "touch": true
+            }
+          });
+        },
+        "touchend": function(had_direction) {
+          airconsole.message(AirConsole.SCREEN, {
+            "dpad": {
+              "touch": false,
+              "had_direction": had_direction
+            }
+          });
+        }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+      new Button("start", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"start": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"start": "up"});
+        }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+      new Button("select", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"select": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"select": "up"});
+        }
+      });
+
+      <!--/*This is where we refer to the JS */-->
+
+      new Button("reset", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"reset": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"reset": "up"});
+        }
+      });
+
+
+      
+
+    </script>
+  </body>
+</html>
