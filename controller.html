@@ -49,9 +49,7 @@
         margin-left: -25%;
         font-size: 10px;
       }
-      .button-80 .button-text {
-        margin-top: -0.6em;
-      }
+  
       /* You need to explicitly position your joystick */
       #joystick_left {
         position: absolute;
@@ -107,17 +105,6 @@
         left: 0px;
         top: 0px;
       }
-      #start {
-        bottom: 110%;
-      }
-      #select {
-        bottom: 55%;
-      }
-      #reset {
-        bottom: 0%;
-      }
-
-
 
 
 
@@ -191,25 +178,30 @@
       #reset {
         bottom: 0%;
       }
+
+     
+
+
     </style>
   </head>
   <body>
   <div id="view_menu" class="view">
     <div class="menu-container">
-    <div class="middle-group">
+      <div class="middle-group">
         <div class="middle-group-square">
-          <div id="start" class="button-80"><div class="button-text">START</div></div>
+          <div id="start"class="button-80"><div class="button-text">START</div></div>
           <div id="select" class="button-80"><div class="button-text">SELECT</div></div>
           <div id="reset" class="button-80"><div class="button-text">RESET</div></div>
         </div>
       </div>
+
       <div id="joystick_menu" class="joystick">
         <div class="joystick-relative">
           <div class="joystick-relative-stick"></div>
         </div>
       </div>
-      <div id=Submit class=button-300-150>
-        <div class="button-text">Submit</div>
+
+      <div id="Submit" class=button-300-150><div class="button-text">Submit</div>
       </div>
     </div>
    </div>
@@ -219,13 +211,7 @@
    <div id="view_ingame" class="view">
       <div class="ingame-container">
 
-      <div class="middle-group">
-        <div class="middle-group-square">
-          <div id="start" class="button-80"><div class="button-text">START</div></div>
-          <div id="select" class="button-80"><div class="button-text">SELECT</div></div>
-          <div id="reset" class="button-80"><div class="button-text">RESET</div></div>
-        </div>
-      </div>
+
 
       <div id="joystick_left" class="joystick">
         <div class="joystick-relative">
@@ -327,6 +313,32 @@
 
     }
     <!--/*This is where we refer to the JS */-->
+
+    new Button("start", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"start": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"start": "up"});
+        }
+      });
+    new Button("select", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"select": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"select": "up"});
+        }
+      });
+  new Button("reset", {
+        "down": function () {
+          airconsole.message(AirConsole.SCREEN, {"reset": "down"});
+        },
+        "up": function () {
+          airconsole.message(AirConsole.SCREEN, {"reset": "up"});
+        }
+      });
+
 
 	var rectangular = new Button("Submit", {
         "down": function() {
@@ -438,72 +450,7 @@
         }
       });
 
-	  <!--/*This is where we refer to the JS */-->
-
-      new DPad("dpad", {
-        "directionchange": function(key, pressed) {
-        airconsole.message(AirConsole.SCREEN, {
-          "dpad": {
-            "directionchange": {
-              "key": key,
-              "pressed": pressed
-            }
-          }
-        });
-      },
-        "touchstart": function() {
-          airconsole.message(AirConsole.SCREEN, {
-            "dpad": {
-              "touch": true
-            }
-          });
-        },
-        "touchend": function(had_direction) {
-          airconsole.message(AirConsole.SCREEN, {
-            "dpad": {
-              "touch": false,
-              "had_direction": had_direction
-            }
-          });
-        }
-      });
-
-      <!--/*This is where we refer to the JS */-->
-
-      new Button("start", {
-        "down": function () {
-          airconsole.message(AirConsole.SCREEN, {"start": "down"});
-        },
-        "up": function () {
-          airconsole.message(AirConsole.SCREEN, {"start": "up"});
-        }
-      });
-
-      <!--/*This is where we refer to the JS */-->
-
-      new Button("select", {
-        "down": function () {
-          airconsole.message(AirConsole.SCREEN, {"select": "down"});
-        },
-        "up": function () {
-          airconsole.message(AirConsole.SCREEN, {"select": "up"});
-        }
-      });
-
-      <!--/*This is where we refer to the JS */-->
-
-      new Button("reset", {
-        "down": function () {
-          airconsole.message(AirConsole.SCREEN, {"reset": "down"});
-        },
-        "up": function () {
-          airconsole.message(AirConsole.SCREEN, {"reset": "up"});
-        }
-      });
-
-
-      
-
+	
     </script>
   </body>
 </html>
