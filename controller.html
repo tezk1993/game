@@ -72,9 +72,6 @@
         padding-bottom: 50%;
         height: 0%;
       }
-
-
-
 	  #Melee {
 	  	bottom: 40px;
         background-position: 50% 100%;
@@ -104,6 +101,16 @@
         padding-bottom: 100%;
         left: 0px;
         top: 0px;
+      }
+
+      #start_ingame {
+        bottom: 110%;
+      }
+      #select_ingame {
+        bottom: 55%;
+      }
+      #reset_ingame {
+        bottom: 0%;
       }
 
 
@@ -210,7 +217,13 @@
 
    <div id="view_ingame" class="view">
       <div class="ingame-container">
-
+      <div class="middle-group">
+        <div class="middle-group-square">
+          <div id="start_ingame"class="button-80"><div class="button-text">START</div></div>
+          <div id="select_ingame" class="button-80"><div class="button-text">SELECT</div></div>
+          <div id="reset_ingame" class="button-80"><div class="button-text">RESET</div></div>
+        </div>
+      </div>
 
 
       <div id="joystick_left" class="joystick">
@@ -330,7 +343,7 @@
           airconsole.message(AirConsole.SCREEN, {"select": "up"});
         }
       });
-  new Button("reset", {
+  new Button("reset_ingame", {
         "down": function () {
           airconsole.message(AirConsole.SCREEN, {"reset": "down"});
         },
