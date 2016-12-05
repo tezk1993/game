@@ -437,33 +437,6 @@
         }
       });
 
-      <!--/*This is where we refer to the JS */-->
-
-      var joystick_right = new Joystick("joystick_right", {
-        "touchstart": function() {
-          rateLimiter.message(AirConsole.SCREEN, {
-            "joystick_right": {
-              touch: true
-            }
-          });
-        },
-        "touchmove": function(position) {
-          rateLimiter.message(AirConsole.SCREEN, {
-            "joystick_right": {
-              position: position
-            }
-          });
-        },
-        "touchend": function(had_direction) {
-          rateLimiter.message(AirConsole.SCREEN, {
-            "joystick_right": {
-              touch: false
-            }
-          });
-        }
-      });
-
-	
     </script>
   </body>
 </html>
